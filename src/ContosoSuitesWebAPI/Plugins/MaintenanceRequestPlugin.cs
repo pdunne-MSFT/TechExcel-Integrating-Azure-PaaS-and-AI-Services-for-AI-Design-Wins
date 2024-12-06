@@ -1,6 +1,10 @@
 ﻿using System.ComponentModel; 
 using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+
 // Exercise 5 Task 2 TODO #5: Add a library references support Semantic Kernel.
 
 namespace ContosoSuitesWebAPI.Plugins
@@ -20,7 +24,10 @@ namespace ContosoSuitesWebAPI.Plugins
         /// <summary>
         /// Creates a new maintenance request for a hotel.
         /// </summary>
-        public async Task<MaintenanceRequest> CreateMaintenanceRequest(int HotelId, string Hotel, string Details, int? RoomNumber, string? location)
+        
+        [KernelFunction("create_maintenance_request")]
+        [Description("Creates a new maintenance request for a hotel.")]
+       public async Task<MaintenanceRequest> CreateMaintenanceRequest(Kernel kernel, int HotelId, string Hotel, string Details, int? RoomNumber,string? location)
         {
             try
             {
@@ -52,7 +59,10 @@ namespace ContosoSuitesWebAPI.Plugins
         /// <summary>
         /// Saves a maintenance request to the database for a hotel.
         /// </summary>
-        public async Task SaveMaintenanceRequest(MaintenanceRequest maintenanceRequest)
+        /// 
+        [KernelFunction("save_maintenance_request")]
+        [Description("Saves  a new maintenance request for a hotel.")]
+        public async Task SaveMaintenanceRequest(Kernel kernel, MaintenanceRequest maintenanceRequest)
         {
             var db = _cosmosClient.GetDatabase("ContosoSuites");
             var container = db.GetContainer("MaintenanceRequests");

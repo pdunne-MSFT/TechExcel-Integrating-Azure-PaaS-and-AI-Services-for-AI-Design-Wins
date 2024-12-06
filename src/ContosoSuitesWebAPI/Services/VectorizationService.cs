@@ -53,8 +53,8 @@ namespace ContosoSuitesWebAPI.Services
 
             var vectorString = string.Join(", ", queryVector.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray());
 
-           var query = $"SELECT c.hotel_id AS HotelId, c.hotel AS Hotel, c.details AS Details, c.source AS Source, VectorDistance(c.request_vector, [{vectorString}]) AS SimilarityScore FROM c";
-           query += $" WHERE VectorDistance(c.request_vector, [{vectorString}]) > {minimum_similarity_score.ToString(CultureInfo.InvariantCulture)}";
+            var query = $"SELECT c.hotel_id AS HotelId, c.hotel AS Hotel, c.details AS Details, c.source AS Source, VectorDistance(c.request_vector, [{vectorString}]) AS SimilarityScore FROM c";
+            query += $" WHERE VectorDistance(c.request_vector, [{vectorString}]) > {minimum_similarity_score.ToString(CultureInfo.InvariantCulture)}";
            query += $" ORDER BY VectorDistance(c.request_vector, [{vectorString}])";
 
             var results = new List<VectorSearchResult>();
