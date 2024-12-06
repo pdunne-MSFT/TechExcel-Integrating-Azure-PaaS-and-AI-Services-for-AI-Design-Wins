@@ -5,12 +5,13 @@ using ContosoSuitesWebAPI.Entities;
 using ContosoSuitesWebAPI.Plugins;
 using ContosoSuitesWebAPI.Services;
 using Microsoft.Data.SqlClient;
-using Azure.AI.OpenAI;
+//using Azure.AI.OpenAI;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Embeddings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,14 +40,14 @@ builder.Services.AddSingleton<CosmosClient>((_) =>
 });
 
 // Create a single instance of the AzureOpenAIClient to be shared across the application.
-builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
-{
-    var endpoint = new Uri(builder.Configuration["AzureOpenAI:Endpoint"]!);
-    var credentials = new AzureKeyCredential(builder.Configuration["AzureOpenAI:ApiKey"]!);
-
-    var client = new AzureOpenAIClient(endpoint, credentials);
-    return client;
-});
+//builder.Services.AddSingleton<AzureOpenAIClient>((_) =>
+//{
+//    var endpoint = new Uri(builder.Configuration["AzureOpenAI:Endpoint"]!);
+//   var credentials = new AzureKeyCredential(builder.Configuration["AzureOpenAI:ApiKey"]!);
+//
+//   var client = new AzureOpenAIClient(endpoint, credentials);
+//    return client;
+//});
 
 builder.Services.AddSingleton<Kernel>((_) =>
 {
